@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prompt Input Data</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+    }
+    .box {
+      background: white;
+      padding: 25px 30px;
+      border-radius: 12px;
+      width: 350px;
+      box-shadow: 8px 0 20px rgba(0, 102, 255, 0.5);
+      text-align: left;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+    h2 {
+      margin-top: 0;
+      font-size: 22px;
+      color: #333;
+      border-bottom: 2px solid #4e54c8;
+      padding-bottom: 6px;
+      transition: color 0.3s;
+    }
+    p {
+      font-size: 16px;
+      margin: 10px 0;
+      color: #555;
+      line-height: 1.3;
+      transition: color 0.3s;
+    }
+    .label {
+      font-weight: 600;
+      color: #222;
+      transition: color 0.3s;
+    }
+    .category {
+      margin-top: 20px;
+      padding: 15px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 8px;
+      color: white;
+      transition: background 0.3s;
+    }
+    .balita  { background:#ff9f43; }
+    .anak    { background:#00a8ff; }
+    .remaja  { background:#9b59b6; }
+    .dewasa  { background:#27ae60; }
+    .ortu    { background:#e67e22; }
+    .manula  { background:#c0392b; }
+
+    /* DARK MODE */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: #121212;
+        color: #ddd;
+      }
+      .box {
+        background: #1e1e1e;
+        box-shadow: 8px 0 30px rgba(0, 102, 255, 0.9);
+        color: #ddd;
+      }
+      h2 {
+        color: #a8aaff;
+        border-bottom-color: #7080ff;
+      }
+      p, .label {
+        color: #ccc;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box" id="hasilInput">
+    <h2>Data yang Diinput</h2>
+    <p id="nama"></p>
+    <p id="alamat"></p>
+    <p id="kota"></p>
+    <p id="jurusan"></p>
+    <p id="umur"></p>
+    <div id="keteranganUmur" class="category"></div>
+  </div>
+
+  <script>
+    window.alert("Selamat datang di website, mohon isi data diri anda");
+
+    var nama = prompt("Masukkan Nama:");
+    var alamat = prompt("Masukkan Alamat:");
+    var kota = prompt("Masukkan Kota:");
+    var jurusan = prompt("Masukkan Jurusan:");
+    var umurInput = prompt("Masukkan umur Anda:");
+    var umur = parseInt(umurInput);
+
+    if (isNaN(umur) || umur < 0) {
+      alert("Umur tidak valid!");
+      umur = "Tidak Valid";
+    }
+
+    document.getElementById("nama").innerHTML = `<span class="label">Nama:</span> ${nama || 'Tidak diisi'}`;
+    document.getElementById("alamat").innerHTML = `<span class="label">Alamat:</span> ${alamat || 'Tidak diisi'}`;
+    document.getElementById("kota").innerHTML = `<span class="label">Kota:</span> ${kota || 'Tidak diisi'}`;
+    document.getElementById("jurusan").innerHTML = `<span class="label">Jurusan:</span> ${jurusan || 'Tidak diisi'}`;
+    document.getElementById("umur").innerHTML = `<span class="label">Umur:</span> ${umurInput || 'Tidak diisi'}`;
+
+    var kategori = "";
+    var kelas = "";
+
+    if (!isNaN(umur)) {
+      if (umur > 65) {
+        kategori = "Manula"; kelas = "manula";
+      } else if (umur > 50) {
+        kategori = "Orang Tua"; kelas = "ortu";
+      } else if (umur > 20) {
+        kategori = "Dewasa"; kelas = "dewasa";
+      } else if (umur > 12) {
+        kategori = "Remaja"; kelas = "remaja";
+      } else if (umur > 5) {
+        kategori = "Anak-anak"; kelas = "anak";
+      } else if (umur >= 0) {
+        kategori = "Balita"; kelas = "balita";
+      }
+
+      alert("Keterangan: " + kategori);
+    } else {
+      kategori = "Umur tidak valid"; kelas = "";
+    }
+
+    var keteranganDiv = document.getElementById("keteranganUmur");
+    keteranganDiv.textContent = kategori;
+    keteranganDiv.className = "category " + kelas;
+  </script>
+
+</body>
+</html>
